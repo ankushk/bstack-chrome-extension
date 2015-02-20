@@ -1,0 +1,67 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+    <!-- Scripts -->
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+    <!-- Cascading Style Sheets -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/custom.css" rel="stylesheet" media="screen">
+
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+    <script src="popup.js"></script>
+  </head>
+
+
+  <body>
+  
+    <h3 class="text-center"> Browserstack Extension </h3>
+    
+    <section>
+      <input id="url-input" type="text" class="form-control" placeholder="Enter URL">
+      <hr>
+      <label>
+        Select Operating System
+      </label>
+      <select class="form-control" id="os_menu">
+        <option value="" disabled selected>Operating System</option>
+      </select>
+      <br>
+      <label>
+        Select Browser
+      </label>
+
+      <select class="form-control" id="browser_menu">
+        <option value="" disabled selected>Browser</option>
+      </select>
+      <br>
+
+      <label>
+        Select Browser Version
+      </label>
+
+      <select class="form-control" id="version_menu">
+        <option value="" disabled selected>Version</option>
+      </select>
+      <br>
+
+      <input class="btn btn-default center-block" type="submit" value="Submit" id="open_action">
+    </section>
+    
+
+  </body>
+
+</html>
+
