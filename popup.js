@@ -42,13 +42,13 @@ $(document).ready(function() {
     $("select#version_menu").empty();
 
     console.log("Os option changed");
-    var selected_os = $("select#os_menu").val();
-    var browsers = browserJson["desktop"][selected_os]["browsers"];
+    var selectedOs = $("select#os_menu").val();
+    var browsers = browserJson["desktop"][selectedOs]["browsers"];
     bObject = {};
 
     $.each(browsers, function(index, value) {
       if (value.hasOwnProperty("browser")) {
-        if(bObject.hasOwnProperty(value["browser"])) {
+        if (bObject.hasOwnProperty(value["browser"])) {
           bObject[value["browser"]].versions.push(value["browser_version"]);
         } else {
           bObject[value["browser"]] = { "versions" : [] };
@@ -61,38 +61,38 @@ $(document).ready(function() {
       $("select#browser_menu").append(new Option(index, index));
     });
 
-    osParam = encodeURIComponent(browserJson["desktop"][selected_os]["os"]).replace(/%20/g, "+"); 
-    osVersionParam = encodeURIComponent(browserJson["desktop"][selected_os]["os_version"]).replace(/%20/g, "+");
+    osParam = encodeURIComponent(browserJson["desktop"][selectedOs]["os"]).replace(/%20/g, "+");
+    osVersionParam = encodeURIComponent(browserJson["desktop"][selectedOs]["os_version"]).replace(/%20/g, "+");
     $("select#browser_menu").change();
   }
 
   function browserOptionChanged() {
     $("select#version_menu").empty();
-    var selected_browser = $("select#browser_menu").val();
+    var selectedBrowser = $("select#browser_menu").val();
 
-    $.each(bObject[selected_browser]["versions"].reverse(), function(index, value) {
+    $.each(bObject[selectedBrowser]["versions"].reverse(), function(index, value) {
       $("select#version_menu").append(new Option(value, value));
     });
 
-    browserParam = encodeURIComponent(selected_browser).replace(/%20/g, "+"); 
+    browserParam = encodeURIComponent(selectedBrowser).replace(/%20/g, "+");
     $("select#version_menu").change();
   }
 
   function versionOptionChanged() {
-    var selected_version = $("select#version_menu").val();
-    browserVersionParam = encodeURIComponent(selected_version).replace(/%20/g, "+");
+    var selectedVersion = $("select#version_menu").val();
+    browserVersionParam = encodeURIComponent(selectedVersion).replace(/%20/g, "+");
   }
 
   function openSelectedBrowser() {
-    if(osParam === "" || osVersionParam === "" || browserParam === "" || browserVersionParam === "") {
+    if (osParam === "" || osVersionParam === "" || browserParam === "" || browserVersionParam === "") {
       alert("Please provide correct configuration values");
-    } 
-
-    var url_param = $("input#url-input").val();
-    if (url_param === "") {
-      url_param = "google.com";
     }
-    encodedurl = encodeURIComponent(url_param).replace(/%20/g, "+");
+
+    var urlParam = $("input#url-input").val();
+    if (urlParam === "") {
+      urlParam = "google.com";
+    }
+    var encodedurl = encodeURIComponent(urlParam).replace(/%20/g, "+");
     chrome.tabs.create({
       url: "http://www.browserstack.com/start#os=" + osParam + "&os_version=" + osVersionParam + "&browser=" + browserParam + "&browser_version=" + browserVersionParam + "&full_screen=" + fullScreenParam + "&url=" + encodedurl + "&start=true"
     });
