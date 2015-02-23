@@ -1,17 +1,16 @@
-$(document).ready(function(){
-  console.log("In this extension");
+$(document).ready(function() {
   // $("input#url-input").val("http://www.google.com");
   $("input#url-input").focus();
 
   var browserJson;
   var bObject = {};
-  var os_param = "";
-  var os_version_param = "";
-  var browser_param = "";
-  var browser_version_param = "";
-  var full_screen_param = true;
+  var osParam = "";
+  var osVersionParam = "";
+  var browserParam = "";
+  var browserVersionParam = "";
+  var fullScreenParam = true;
 
-  function fetch_browser_list(callback) {
+  function fetchBrowserList(callback) {
     $.ajax({
       url: "http://www.browserstack.com/list-of-browsers-and-platforms.json?product=live",
       type: 'GET',
@@ -20,12 +19,11 @@ $(document).ready(function(){
       success: function(data) {
         browserJson = data;
         callback();
-
       }
     });
   }
 
-  function set_select_options() {
+  function setSelectOptions() {
     console.log(browserJson);
     $("select#os_menu").empty();
     $("select#browser_menu").empty();
@@ -39,7 +37,7 @@ $(document).ready(function(){
     $("select#os_menu").change();
   }
 
-  function os_option_changed() {
+  function osOptionChanged() {
     $("select#browser_menu").empty();
     $("select#version_menu").empty();
 
@@ -63,12 +61,12 @@ $(document).ready(function(){
       $("select#browser_menu").append(new Option(index, index));
     });
 
-    os_param = encodeURIComponent(browserJson["desktop"][selected_os]["os"]).replace(/%20/g, "+"); 
-    os_version_param = encodeURIComponent(browserJson["desktop"][selected_os]["os_version"]).replace(/%20/g, "+");
+    osParam = encodeURIComponent(browserJson["desktop"][selected_os]["os"]).replace(/%20/g, "+"); 
+    osVersionParam = encodeURIComponent(browserJson["desktop"][selected_os]["os_version"]).replace(/%20/g, "+");
     $("select#browser_menu").change();
   }
 
-  function browser_option_changed() {
+  function browserOptionChanged() {
     $("select#version_menu").empty();
     var selected_browser = $("select#browser_menu").val();
 
@@ -76,21 +74,17 @@ $(document).ready(function(){
       $("select#version_menu").append(new Option(value, value));
     });
 
-    browser_param = encodeURIComponent(selected_browser).replace(/%20/g, "+"); 
+    browserParam = encodeURIComponent(selected_browser).replace(/%20/g, "+"); 
     $("select#version_menu").change();
   }
 
-  function version_option_changed() {
+  function versionOptionChanged() {
     var selected_version = $("select#version_menu").val();
-    browser_version_param = encodeURIComponent(selected_version).replace(/%20/g, "+");;
+    browserVersionParam = encodeURIComponent(selected_version).replace(/%20/g, "+");
   }
 
-  function open_selected_browser() {
-    console.log("OS: " + os_param);
-    console.log("OS version: " + os_version_param);
-    console.log("Browser: " + browser_param);
-    console.log("Version: " + browser_version_param);
-    if(os_param === "" || os_version_param === "" || browser_param === "" || browser_version_param === "") {
+  function openSelectedBrowser() {
+    if(osParam === "" || osVersionParam === "" || browserParam === "" || browserVersionParam === "") {
       alert("Please provide correct configuration values");
     } 
 
@@ -100,14 +94,14 @@ $(document).ready(function(){
     }
     encodedurl = encodeURIComponent(url_param).replace(/%20/g, "+");
     chrome.tabs.create({
-      url: "http://www.browserstack.com/start#os=" + os_param + "&os_version=" + os_version_param + "&browser=" + browser_param + "&browser_version=" + browser_version_param + "&full_screen=" + full_screen_param + "&url=" + encodedurl + "&start=true"
+      url: "http://www.browserstack.com/start#os=" + osParam + "&os_version=" + osVersionParam + "&browser=" + browserParam + "&browser_version=" + browserVersionParam + "&full_screen=" + fullScreenParam + "&url=" + encodedurl + "&start=true"
     });
   }
 
-  fetch_browser_list(set_select_options);
-  $("select#os_menu").change(os_option_changed);
-  $("select#browser_menu").change(browser_option_changed);
-  $("select#version_menu").change(version_option_changed);
+  fetchBrowserList(setSelectOptions);
+  $("select#os_menu").change(osOptionChanged);
+  $("select#browser_menu").change(browserOptionChanged);
+  $("select#version_menu").change(versionOptionChanged);
 
-  $("input#open_action").click(open_selected_browser);
+  $("input#open_action").click(openSelectedBrowser);
 });
