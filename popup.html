@@ -26,38 +26,36 @@
 
 
   <body>
-  
-    <h3 class="text-center"> Browserstack Extension </h3>
-    
+    <header>
+      <h3 class="text-center"> Browserstack Extension </h3>
+    </header>
+
     <section>
-      <input id="url-input" type="text" class="form-control" placeholder="Enter URL">
-      <hr>
-      <label>
+      <input id="url-input" type="text" class="form-control" placeholder="Enter URL" tabindex="1">
+      <div class="hr"> </div>
+      <label for="os_menu">
         Select Operating System
       </label>
-      <select class="form-control" id="os_menu">
+      <select class="form-control" id="os_menu" tabindex="2">
         <option value="" disabled selected>Operating System</option>
       </select>
-      <br>
-      <label>
+      <label for="browser_menu">
         Select Browser
       </label>
 
-      <select class="form-control" id="browser_menu">
+      <select class="form-control" id="browser_menu" tabindex="3">
         <option value="" disabled selected>Browser</option>
       </select>
-      <br>
 
-      <label>
+      <label for="version_menu">
         Select Browser Version
       </label>
 
-      <select class="form-control" id="version_menu">
+      <select class="form-control" id="version_menu" tabindex="4">
         <option value="" disabled selected>Version</option>
       </select>
-      <br>
 
-      <input class="btn btn-default center-block" type="submit" value="Submit" id="open_action">
+      <input class="btn btn-default center-block" type="submit" value="Submit" id="open_action" tabindex="5">
     </section>
     
 

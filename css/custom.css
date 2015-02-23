@@ -6,15 +6,42 @@
 
 body, section {			/* Change width and height to own preferences */
 	width: 450px;
-	height: 370px;
+	height: 360px;
 	overflow-x: hidden;
 }
 
 /* Basic style tweaks */
-section { padding: 5px;}
-.navbar { margin-bottom: 2px; }
+section {
+  padding: 5px;
+}
+
+.navbar {
+  margin-bottom: 2px;
+}
+
+.form-control {
+  margin-bottom: 20px;
+}
+
+.hr {
+background-color: #FFFFFF;
+border: 1px solid #000000;
+height: 1px;
+margin-bottom: 15px;
+width: auto;
+}
+
+
 
 /* Scroll Bar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
-::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:window-inactive  { background: red; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:window-inactive  {
+  background: red;
+}
